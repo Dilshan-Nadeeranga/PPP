@@ -1,0 +1,12 @@
+.footer {
+  background: var(--text-dark);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footerContent {
+  color: rgba(255, 255, 255, 0.8);
+}
+
