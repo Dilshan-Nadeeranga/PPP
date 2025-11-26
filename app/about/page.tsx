@@ -54,7 +54,7 @@ export default function About() {
               <div className="bg-background-light p-8 rounded-2xl text-center transition-all hover:-translate-y-1 hover:shadow-xl">
                 <div className="text-5xl mb-4">❤️</div>
                 <h3 className="text-primary text-2xl mb-2">Commitment</h3>
-                <p className="text-text-light m-0">We are dedicated to our clients' success</p>
+                <p className="text-text-light m-0">We are dedicated to our clients&apos; success</p>
               </div>
             </div>
           </div>

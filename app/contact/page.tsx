@@ -30,7 +30,7 @@ export default function Contact() {
       <div className="bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white py-16 text-center">
         <div className="container">
           <h1 className="text-5xl font-extrabold mb-4">Contact Us</h1>
-          <p className="text-xl opacity-95">Get in touch with us. We'd love to hear from you!</p>
+          <p className="text-xl opacity-95">Get in touch with us. We&apos;d love to hear from you!</p>
         </div>
       </div>
 
