@@ -83,3 +83,28 @@ npm start
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Next.js GitHub Repository](https://github.com/vercel/next.js)
 
+
+## Admin (back office)
+
+Open [http://localhost:3000/admin](http://localhost:3000/admin) and sign in.
+
+- **Default login:** `admin@prasannapp.com` / `PPP@admin2026` (set in `lib/auth.ts`).
+  Override them with the `ADMIN_EMAIL` and `ADMIN_PASSWORD` environment variables. Do this before going live,
+  because anyone who can see this repository can read the defaults.
+- **Dashboard:** product counts and shop details at a glance.
+- **Products:** add, edit, hide/show and delete the products on the Products page.
+- **Shop details:** phone, WhatsApp, email, address, opening hours and years in business.
+
+Where changes are saved:
+
+- On your PC (`npm run dev` / `npm start`): `data/store.json` (not committed to git).
+  Delete it to go back to the default products and details.
+- On Vercel: Upstash Redis (see below).
+
+## Deploying to Vercel
+
+1. Import the GitHub repo at [vercel.com/new](https://vercel.com/new). No build settings need changing.
+2. In the project, open **Storage** (or **Integrations**) and add **Upstash for Redis** (free plan).
+   It adds `KV_REST_API_URL` and `KV_REST_API_TOKEN` automatically.
+3. In **Settings → Environment Variables**, add `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
+4. Redeploy.

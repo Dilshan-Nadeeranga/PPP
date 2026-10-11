@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
-import MobileActionBar from '@/components/MobileActionBar'
 
 const bodyFont = DM_Sans({ subsets: ['latin'], variable: '--font-body', display: 'swap' })
 const displayFont = Space_Grotesk({
@@ -31,10 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Navigation />
-        <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
-        <MobileActionBar />
+        {children}
       </body>
     </html>
   )

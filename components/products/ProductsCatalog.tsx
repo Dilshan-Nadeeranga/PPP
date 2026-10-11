@@ -1,8 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { categories, products, type CategoryId } from '@/lib/products'
+import { categories, type CategoryId, type Product } from '@/lib/products'
 import { whatsappLink } from '@/lib/site'
+import { useSite } from '@/components/SiteProvider'
 import { CloseIcon } from '@/components/icons'
 import ProductCard from './ProductCard'
 import EnquiryDrawer, { type EnquiryItem } from './EnquiryDrawer'
@@ -30,7 +31,8 @@ function ListIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-export default function ProductsCatalog() {
+export default function ProductsCatalog({ products }: { products: Product[] }) {
+  const site = useSite()
   const [filter, setFilter] = useState<Filter>('all')
   const [query, setQuery] = useState('')
   const [items, setItems] = useState<EnquiryItem[]>([])
@@ -64,7 +66,7 @@ export default function ProductsCatalog() {
       // Storage unavailable or corrupt: start with an empty list
     }
     setLoaded(true)
-  }, [])
+  }, [products])
 
   useEffect(() => {
     if (!loaded) return
@@ -85,7 +87,7 @@ export default function ProductsCatalog() {
     const map: Record<string, number> = { all: products.length }
     for (const p of products) map[p.category] = (map[p.category] ?? 0) + 1
     return map
-  }, [])
+  }, [products])
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -95,7 +97,7 @@ export default function ProductsCatalog() {
       const category = categories.find((c) => c.id === p.category)
       return [p.name, p.description, category?.name, category?.short].some((text) => text?.toLowerCase().includes(q))
     })
-  }, [filter, query])
+  }, [products, filter, query])
 
   const groups = categories
     .map((category) => ({ category, items: visible.filter((p) => p.category === category.id) }))
@@ -187,7 +189,7 @@ export default function ProductsCatalog() {
           <p className="mx-auto mt-2 max-w-md text-ink-soft">We stock more than we list here. Ask us and we’ll tell you if we have it.</p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <a
-              href={whatsappLink(`Hi, do you have ${query.trim()}?`)}
+              href={whatsappLink(site, `Hi, do you have ${query.trim()}?`)}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-xl bg-whatsapp px-5 py-3 font-semibold text-white hover:opacity-90"
@@ -249,6 +251,7 @@ export default function ProductsCatalog() {
 
       <EnquiryDrawer
         open={drawerOpen}
+        products={products}
         items={items}
         onClose={closeDrawer}
         onChange={updateItem}

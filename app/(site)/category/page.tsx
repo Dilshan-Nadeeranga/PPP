@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { site } from '@/lib/site'
+import { getSite, getVisibleProducts } from '@/lib/store'
 import { PhoneIcon, RulerIcon } from '@/components/icons'
 import ProductsCatalog from '@/components/products/ProductsCatalog'
 
@@ -10,7 +10,9 @@ export const metadata: Metadata = {
     'Glass, door hardware, aluminum pantry parts and boards in Mirigama. Add what you need to your enquiry list and send it to us on WhatsApp for a price.',
 }
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const [site, products] = await Promise.all([getSite(), getVisibleProducts()])
+
   return (
     <div className="bg-canvas text-ink">
       <div className="relative isolate overflow-hidden">
@@ -54,7 +56,7 @@ export default function ProductsPage() {
           </header>
 
           <div className="mt-6 sm:mt-8">
-            <ProductsCatalog />
+            <ProductsCatalog products={products} />
           </div>
 
           {/* CTA */}

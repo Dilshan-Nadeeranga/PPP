@@ -34,3 +34,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# admin data saved locally (npm run dev / npm start)
+/data/
+
+# test builds
+/.next-check/

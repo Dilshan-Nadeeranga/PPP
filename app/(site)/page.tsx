@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import type { ComponentType, SVGProps } from 'react'
-import { site, whatsappLink } from '@/lib/site'
+import { whatsappLink, type Site } from '@/lib/site'
+import { getSite } from '@/lib/store'
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
@@ -36,9 +37,9 @@ export const metadata: Metadata = {
 type IconType = ComponentType<SVGProps<SVGSVGElement>>
 
 // Class names are written out in full so Tailwind can find them.
-const contactCards: { icon: IconType; title: string; detail: string; href: string; chip: string; external?: boolean }[] = [
+const getContactCards = (site: Site): { icon: IconType; title: string; detail: string; href: string; chip: string; external?: boolean }[] => [
   { icon: PhoneIcon, title: 'Call us', detail: site.phoneDisplay, href: site.phoneHref, chip: 'bg-brand text-white' },
-  { icon: ChatIcon, title: 'WhatsApp', detail: 'Send photos and sizes', href: whatsappLink(), chip: 'bg-whatsapp text-white', external: true },
+  { icon: ChatIcon, title: 'WhatsApp', detail: 'Send photos and sizes', href: whatsappLink(site), chip: 'bg-whatsapp text-white', external: true },
   { icon: PinIcon, title: 'Visit the shop', detail: site.address, href: site.mapsUrl, chip: 'bg-coral-deep text-white', external: true },
   { icon: MailIcon, title: 'Email', detail: site.email, href: `mailto:${site.email}`, chip: 'bg-sky-deep text-white' },
 ]
@@ -92,7 +93,7 @@ const steps = [
   { title: 'We cut, make and fit', body: 'Glass is cut to size and cupboards are built to your layout, then installed on site.', color: 'text-[#ff9f80]' },
 ]
 
-const values: { icon: IconType; title: string; body: string; chip: string }[] = [
+const getValues = (site: Site): { icon: IconType; title: string; body: string; chip: string }[] => [
   { icon: RulerIcon, title: 'Measured properly', body: 'Precise cutting means glass and cupboards fit first time.', chip: 'bg-brand-soft text-brand' },
   { icon: HomeIcon, title: 'Fitted at your place', body: "Our team installs on site, so you don't have to carry glass.", chip: 'bg-sun-soft text-sun-deep' },
   { icon: ShieldIcon, title: 'Quality materials', body: 'Durable hardware and aluminum chosen to last for years.', chip: 'bg-sky-soft text-sky-deep' },
@@ -111,7 +112,7 @@ const values: { icon: IconType; title: string; body: string; chip: string }[] = 
       },
 ]
 
-const shopDetails = [
+const getShopDetails = (site: Site) => [
   { label: 'Phone', value: site.phoneDisplay, href: site.phoneHref },
   { label: 'Email', value: site.email, href: `mailto:${site.email}` },
   { label: 'Address', value: site.address, href: site.mapsUrl },
@@ -137,7 +138,12 @@ const h2 = 'font-display text-[30px] font-semibold leading-tight tracking-tight 
 const swipeRow =
   'no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:overflow-visible md:px-0 md:pb-0'
 
-export default function Home() {
+export default async function Home() {
+  const site = await getSite()
+  const contactCards = getContactCards(site)
+  const values = getValues(site)
+  const shopDetails = getShopDetails(site)
+
   return (
     <div className="bg-canvas text-ink">
       {/* Hero: fills the screen below the header */}
@@ -271,7 +277,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href={whatsappLink(ask)}
+                    href={whatsappLink(site, ask)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`group mt-auto inline-flex items-center gap-1.5 pt-6 font-semibold sm:pt-7 ${link}`}

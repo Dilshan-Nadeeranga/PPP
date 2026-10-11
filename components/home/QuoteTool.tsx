@@ -1,7 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { site, whatsappLink } from '@/lib/site'
+import { whatsappLink } from '@/lib/site'
+import { useSite } from '../SiteProvider'
 import { ChatIcon } from '../icons'
 
 const ITEMS = ['Glass sheet', 'Mirror', 'Glass door', 'Glass panel', 'Pantry cupboard'] as const
@@ -61,6 +62,7 @@ function PreviewShape({ item }: { item: Item }) {
 }
 
 export default function QuoteTool() {
+  const site = useSite()
   const [item, setItem] = useState<Item>('Glass sheet')
   const [width, setWidth] = useState('36')
   const [height, setHeight] = useState('48')
@@ -90,7 +92,7 @@ export default function QuoteTool() {
     e.preventDefault()
     setTouched(true)
     if (!valid) return
-    window.open(whatsappLink(message), '_blank', 'noopener,noreferrer')
+    window.open(whatsappLink(site, message), '_blank', 'noopener,noreferrer')
   }
 
   const fieldClass = (ok: boolean) =>

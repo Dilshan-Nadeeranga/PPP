@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { site, whatsappLink } from '@/lib/site'
-import { products } from '@/lib/products'
+import { whatsappLink, type Site } from '@/lib/site'
+import type { Product } from '@/lib/products'
+import { useSite } from '@/components/SiteProvider'
 import { ChatIcon, CloseIcon } from '@/components/icons'
 import { categoryStyles } from './categoryStyles'
 
@@ -10,6 +11,7 @@ export type EnquiryItem = { slug: string; qty: number; note: string }
 
 type Props = {
   open: boolean
+  products: Product[]
   items: EnquiryItem[]
   onClose: () => void
   onChange: (slug: string, patch: Partial<Omit<EnquiryItem, 'slug'>>) => void
@@ -19,7 +21,7 @@ type Props = {
 
 const MAX_QTY = 999
 
-export function buildEnquiryMessage(items: EnquiryItem[]) {
+export function buildEnquiryMessage(site: Pick<Site, 'name'>, products: Product[], items: EnquiryItem[]) {
   const lines = items.map((item, i) => {
     const product = products.find((p) => p.slug === item.slug)
     const note = item.note.trim()
@@ -28,7 +30,8 @@ export function buildEnquiryMessage(items: EnquiryItem[]) {
   return `Hi ${site.name}, I'd like a price for:\n${lines.join('\n')}\n\nThank you!`
 }
 
-export default function EnquiryDrawer({ open, items, onClose, onChange, onRemove, onClear }: Props) {
+export default function EnquiryDrawer({ open, products, items, onClose, onChange, onRemove, onClear }: Props) {
+  const site = useSite()
   const panelRef = useRef<HTMLDivElement>(null)
   const totalQty = items.reduce((sum, i) => sum + i.qty, 0)
 
@@ -171,7 +174,7 @@ export default function EnquiryDrawer({ open, items, onClose, onChange, onRemove
 
         <div className="border-t border-line px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
           <a
-            href={items.length ? whatsappLink(buildEnquiryMessage(items)) : undefined}
+            href={items.length ? whatsappLink(site, buildEnquiryMessage(site, products, items)) : undefined}
             target="_blank"
             rel="noopener noreferrer"
             aria-disabled={items.length === 0}

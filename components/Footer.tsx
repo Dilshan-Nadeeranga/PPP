@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { site } from '@/lib/site'
+import type { Site } from '@/lib/site'
 
 const links = [
   { href: '/about', label: 'About' },
@@ -9,7 +9,7 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ]
 
-export default function Footer() {
+export default function Footer({ site }: { site: Site }) {
   return (
     <footer className="mt-auto bg-ink text-white">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">

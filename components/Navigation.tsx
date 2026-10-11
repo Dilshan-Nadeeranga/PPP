@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { site } from '@/lib/site'
+import { useSite } from './SiteProvider'
 import { CloseIcon, MenuIcon } from './icons'
 
 const links = [
@@ -21,6 +21,7 @@ function isActive(pathname: string, href: string) {
 }
 
 export default function Navigation() {
+  const site = useSite()
   const pathname = usePathname() ?? '/'
   const [open, setOpen] = useState(false)
 

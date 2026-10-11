@@ -1,6 +1,6 @@
 // Product catalogue for the Products page (/category).
-// To show a real photo on a card, put it in /public/products/ and set `image`,
-// e.g. image: '/products/tempered-glass.jpg'.
+// These are the starting products; after that the admin manages them in /admin/products.
+// `image` is optional: a path in /public (e.g. '/products/tempered-glass.jpg') or a full https:// URL.
 
 export type CategoryId = 'glass' | 'door-hardware' | 'aluminum-pantry' | 'boards'
 
@@ -10,6 +10,7 @@ export type Product = {
   description: string
   category: CategoryId
   image?: string
+  hidden?: boolean // true = not shown on the Products page
 }
 
 export type Category = {
@@ -26,7 +27,7 @@ export const categories: Category[] = [
   { id: 'boards', name: 'Board items', short: 'Boards', tagline: 'Sheets for furniture and fit-outs' },
 ]
 
-export const products: Product[] = [
+export const defaultProducts: Product[] = [
   // Glass
   { slug: 'tempered-glass', category: 'glass', name: 'Tempered glass', description: 'Toughened safety glass for doors, shower screens and table tops.' },
   { slug: 'clear-glass', category: 'glass', name: 'Clear glass', description: 'Standard clear sheet glass for windows and frames, cut to size.' },
@@ -60,3 +61,5 @@ export const products: Product[] = [
   { slug: 'hardboard', category: 'boards', name: 'Hardboard', description: 'Thin boards for backing panels and drawer bases.' },
   { slug: 'whiteboard', category: 'boards', name: 'Whiteboard', description: 'Writing boards for offices, schools and homes.' },
 ]
+
+export const isCategoryId = (v: unknown): v is CategoryId => categories.some((c) => c.id === v)

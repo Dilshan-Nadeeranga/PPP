@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { site, whatsappLink } from '@/lib/site'
+import { whatsappLink } from '@/lib/site'
+import { useSite } from './SiteProvider'
 import { ChatIcon, PhoneIcon } from './icons'
 
 const isTextField = (el: EventTarget | null) =>
@@ -9,6 +10,7 @@ const isTextField = (el: EventTarget | null) =>
 
 /** One-tap Call / WhatsApp bar fixed to the bottom of the screen on phones. */
 export default function MobileActionBar() {
+  const site = useSite()
   // Hide while typing so the bar doesn't sit on top of the on-screen keyboard
   const [typing, setTyping] = useState(false)
 
@@ -41,7 +43,7 @@ export default function MobileActionBar() {
             Call
           </a>
           <a
-            href={whatsappLink()}
+            href={whatsappLink(site)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 rounded-xl bg-whatsapp py-3 font-semibold text-white active:opacity-90"

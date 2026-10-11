@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { whatsappLink } from '@/lib/site'
+import { useSite } from '@/components/SiteProvider'
 import type { Category, Product } from '@/lib/products'
 import { ChatIcon, CheckIcon } from '@/components/icons'
 import { categoryStyles } from './categoryStyles'
@@ -12,6 +15,7 @@ type Props = {
 }
 
 export default function ProductCard({ product, category, inEnquiry, onToggle }: Props) {
+  const site = useSite()
   const { Art, art, label } = categoryStyles[product.category]
 
   return (
@@ -22,6 +26,8 @@ export default function ProductCard({ product, category, inEnquiry, onToggle }: 
             src={product.image}
             alt={product.name}
             fill
+            // Photos from other websites skip Next's optimiser, which only allows listed domains
+            unoptimized={/^https?:\/\//.test(product.image)}
             className="object-cover"
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
@@ -62,7 +68,7 @@ export default function ProductCard({ product, category, inEnquiry, onToggle }: 
             )}
           </button>
           <a
-            href={whatsappLink(`Hi, I'd like to ask about ${product.name.toLowerCase()}.`)}
+            href={whatsappLink(site, `Hi, I'd like to ask about ${product.name.toLowerCase()}.`)}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Ask about ${product.name} on WhatsApp`}
