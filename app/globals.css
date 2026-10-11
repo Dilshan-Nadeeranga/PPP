@@ -20,6 +20,33 @@
   }
 }
 
+/* Height of the sticky header: compact on phones, with the info bar from md up */
+:root {
+  --header-h: 64px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 108px;
+  }
+}
+
+@layer utilities {
+  /* Fill the screen below the sticky header (svh avoids mobile browser-bar jumps) */
+  .hero-screen {
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100svh - var(--header-h));
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   .container {
     @apply max-w-7xl mx-auto px-5;
