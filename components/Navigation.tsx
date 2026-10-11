@@ -1,10 +1,11 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { site } from '@/lib/site'
-import { CloseIcon, LogoMark, MenuIcon } from './icons'
+import { CloseIcon, MenuIcon } from './icons'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -52,9 +53,14 @@ export default function Navigation() {
       <nav aria-label="Main" className="border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 md:h-[72px]">
           <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand to-[#0d8a8a] text-white">
-              <LogoMark className="h-5 w-5" />
-            </span>
+            <Image
+              src="/logo-mark.png"
+              alt=""
+              width={44}
+              height={44}
+              priority
+              className="h-10 w-10 shrink-0 md:h-11 md:w-11"
+            />
             <span className="leading-tight">
               <span className="block font-display text-[17px] font-semibold text-ink">{site.name}</span>
               <span className="block text-xs text-ink-muted">{site.tagline}</span>

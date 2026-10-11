@@ -79,11 +79,11 @@ const services = [
   },
 ]
 
-const categories: { icon: IconType; title: string; detail: string; chip: string; hover: string }[] = [
-  { icon: GridIcon, title: 'Glass products', detail: 'Sheets, mirrors, doors, panels', chip: 'bg-brand-soft text-brand', hover: 'hover:bg-brand hover:border-brand' },
-  { icon: LockIcon, title: 'Door hardware', detail: 'Locks, hinges, handles', chip: 'bg-sun-soft text-sun-deep', hover: 'hover:bg-sun-deep hover:border-sun-deep' },
-  { icon: CupboardIcon, title: 'Aluminum pantry', detail: 'Cupboards and fittings', chip: 'bg-sky-soft text-sky-deep', hover: 'hover:bg-sky-deep hover:border-sky-deep' },
-  { icon: BoardIcon, title: 'Board items', detail: 'Boards and accessories', chip: 'bg-coral-soft text-coral-deep', hover: 'hover:bg-coral-deep hover:border-coral-deep' },
+const categories: { id: string; icon: IconType; title: string; detail: string; chip: string; hover: string }[] = [
+  { id: 'glass', icon: GridIcon, title: 'Glass products', detail: 'Sheets, mirrors, doors, panels', chip: 'bg-brand-soft text-brand', hover: 'hover:bg-brand hover:border-brand' },
+  { id: 'door-hardware', icon: LockIcon, title: 'Door hardware', detail: 'Locks, hinges, handles', chip: 'bg-sun-soft text-sun-deep', hover: 'hover:bg-sun-deep hover:border-sun-deep' },
+  { id: 'aluminum-pantry', icon: CupboardIcon, title: 'Aluminum pantry', detail: 'Cupboards and fittings', chip: 'bg-sky-soft text-sky-deep', hover: 'hover:bg-sky-deep hover:border-sky-deep' },
+  { id: 'boards', icon: BoardIcon, title: 'Board items', detail: 'Boards and accessories', chip: 'bg-coral-soft text-coral-deep', hover: 'hover:bg-coral-deep hover:border-coral-deep' },
 ]
 
 const steps = [
@@ -296,10 +296,10 @@ export default function Home() {
           <SwipeHint />
         </div>
         <ul className={`${swipeRow} mt-6 md:mt-8 md:grid-cols-2 md:gap-3 lg:grid-cols-4`}>
-          {categories.map(({ icon: Icon, title, detail, chip, hover }) => (
+          {categories.map(({ id, icon: Icon, title, detail, chip, hover }) => (
             <li key={title} className="w-[70%] shrink-0 snap-start sm:w-[45%] md:w-auto">
               <Link
-                href="/category"
+                href={`/category#${id}`}
                 className={`group flex h-full min-h-[180px] flex-col justify-between gap-8 rounded-3xl border border-line bg-white p-5 transition-colors duration-300 ${hover}`}
               >
                 <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors duration-300 group-hover:bg-white/15 group-hover:text-white ${chip}`}>

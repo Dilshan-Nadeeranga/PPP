@@ -1,196 +1,93 @@
-'use client'
+import Link from 'next/link'
+import type { Metadata } from 'next'
+import { site } from '@/lib/site'
+import { PhoneIcon, RulerIcon } from '@/components/icons'
+import ProductsCatalog from '@/components/products/ProductsCatalog'
 
-import { useState } from 'react'
-import Image from 'next/image'
+export const metadata: Metadata = {
+  title: 'Products - Prasanna Picture Palace',
+  description:
+    'Glass, door hardware, aluminum pantry parts and boards in Mirigama. Add what you need to your enquiry list and send it to us on WhatsApp for a price.',
+}
 
-export default function Category() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [expandedGroups, setExpandedGroups] = useState<{ [key: string]: boolean }>({
-    glass: true,
-    'door-hardware': true,
-    'aluminum-pantry': true,
-    board: true
-  })
-
-  const categories = [
-    {
-      id: 'glass',
-      number: '1️⃣',
-      mainGroup: 'Glass Products',
-      image: '/category-glass.jpg',
-      subGroups: [
-        'Tempered Glass',
-        'Clear Glass',
-        'Mirrors',
-        'Glass Doors',
-        'Glass Partitions',
-        'Glass Table Tops'
-      ]
-    },
-    {
-      id: 'door-hardware',
-      number: '2️⃣',
-      mainGroup: 'Door Hardware Items',
-      image: '/category-door-hardware.jpg',
-      subGroups: [
-        'Door Locks',
-        'Hinges',
-        'Door Handles',
-        'Tower Bolts',
-        'Door Closers',
-        'Sliding Door Accessories',
-        'Door Stoppers',
-        'Screws & Fittings'
-      ]
-    },
-    {
-      id: 'aluminum-pantry',
-      number: '3️⃣',
-      mainGroup: 'Aluminum Pantry Cupboard Items',
-      image: '/category-aluminum-pantry.jpg',
-      subGroups: [
-        'Aluminum Pantry Cupboards',
-        'Pantry Frames',
-        'Pantry Doors',
-        'Sliding Pantry Systems',
-        'Aluminum Profiles',
-        'Kitchen Glass Panels'
-      ]
-    },
-    {
-      id: 'board',
-      number: '4️⃣',
-      mainGroup: 'Board Items',
-      image: '/category-board.jpg',
-      subGroups: [
-        'Plywood',
-        'MDF',
-        'Chipboard',
-        'Hardboard',
-        'Whiteboard'
-      ]
-    }
-  ]
-
-  const filteredCategories = selectedCategory
-    ? categories.filter(cat => cat.id === selectedCategory)
-    : categories
-
-  const toggleGroup = (categoryId: string) => {
-    setExpandedGroups(prev => ({
-      ...prev,
-      [categoryId]: !prev[categoryId]
-    }))
-  }
-
+export default function ProductsPage() {
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white py-16 text-center">
-        <div className="container">
-          <h1 className="text-5xl font-extrabold mb-4">Categories</h1>
-          <p className="text-xl opacity-95">Browse our wide range of products and services by category</p>
+    <div className="bg-canvas text-ink">
+      <div className="relative isolate overflow-hidden">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px]">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#eef7f6] to-canvas" />
+          <div className="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-brand-glow/25 blur-3xl" />
+          <div className="absolute -right-20 top-0 h-72 w-72 rounded-full bg-sun/20 blur-3xl" />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pt-10">
+          <nav aria-label="Breadcrumb" className="text-sm text-ink-muted">
+            <ol className="flex items-center gap-1.5">
+              <li>
+                <Link href="/" className="underline underline-offset-2 hover:text-ink">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-ink">
+                Products
+              </li>
+            </ol>
+          </nav>
+
+          <header className="mt-4 grid gap-5 md:mt-5 md:grid-cols-[1fr_auto] md:items-end md:gap-10">
+            <div>
+              <h1 className="font-display text-[40px] font-semibold leading-none tracking-tight sm:text-5xl lg:text-6xl">Products</h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">
+                Glass, door hardware, aluminum pantry parts and boards. Add what you need to your enquiry list and send it to us
+                on WhatsApp for a price.
+              </p>
+            </div>
+            <div className="flex max-w-sm items-start gap-3 rounded-2xl border border-line bg-white p-4">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-sun-soft text-sun-deep">
+                <RulerIcon className="h-5 w-5" />
+              </span>
+              <p className="text-sm leading-relaxed text-ink-soft">
+                Prices depend on size and thickness, so we quote each order. Most replies the same day.
+              </p>
+            </div>
+          </header>
+
+          <div className="mt-6 sm:mt-8">
+            <ProductsCatalog />
+          </div>
+
+          {/* CTA */}
+          <section className="relative isolate mt-14 overflow-hidden rounded-3xl bg-ink px-6 py-8 text-white sm:mt-20 sm:px-10 sm:py-10">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+              <div className="absolute -left-16 -top-20 h-64 w-64 rounded-full bg-brand/50 blur-3xl" />
+              <div className="absolute -bottom-24 right-10 h-56 w-56 rounded-full bg-sun/20 blur-3xl" />
+            </div>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="font-display text-2xl font-semibold sm:text-3xl">Need glass cut or a cupboard made?</h2>
+                <p className="mt-2 text-white/75">Send your measurements and we&apos;ll quote the cutting, making and fitting together.</p>
+              </div>
+              <div className="grid gap-3 sm:flex sm:shrink-0">
+                <Link
+                  href="/#quote"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 font-semibold text-ink transition-colors hover:bg-brand-soft"
+                >
+                  <RulerIcon className="h-5 w-5 text-brand" />
+                  Use the size tool
+                </Link>
+                <a
+                  href={site.phoneHref}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 px-5 py-3.5 font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  <PhoneIcon className="h-5 w-5" />
+                  Call {site.phoneLocal}
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-
-      {/* Filter Section */}
-      <section className="py-8 bg-white border-b border-border sticky top-[73px] z-40 shadow-sm">
-        <div className="container">
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                selectedCategory === null
-                  ? 'bg-primary text-white shadow-md'
-                  : 'bg-background-light text-text-dark hover:bg-primary hover:text-white'
-              }`}
-            >
-              All Categories
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                  selectedCategory === category.id
-                    ? 'bg-primary text-white shadow-md'
-                    : 'bg-background-light text-text-dark hover:bg-primary hover:text-white'
-                }`}
-              >
-                {category.mainGroup}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Grid */}
-      <section className="py-16 bg-background-light">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredCategories.map((category, index) => (
-              <div key={index} className="bg-white p-8 rounded-2xl shadow-md transition-all hover:shadow-xl overflow-hidden">
-                {/* Category Image */}
-                <div className="mb-6 w-full h-64 relative rounded-lg overflow-hidden">
-                  <Image
-                    src={category.image}
-                    alt={category.mainGroup}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                  />
-                </div>
-
-                {/* Main Group Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="text-4xl">{category.number}</div>
-                    <h3 className="text-2xl font-bold text-text-dark">{category.mainGroup}</h3>
-                  </div>
-                  <button
-                    onClick={() => toggleGroup(category.id)}
-                    className="text-primary hover:text-primary-dark transition-colors"
-                    aria-label={expandedGroups[category.id] ? 'Collapse' : 'Expand'}
-                  >
-                    {expandedGroups[category.id] ? (
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                      </svg>
-                    ) : (
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-
-                {/* Sub Groups */}
-                {expandedGroups[category.id] && (
-                  <div className="mt-4">
-                    <p className="text-text-light text-sm font-semibold mb-3 uppercase tracking-wide">
-                      Sub Groups:
-                    </p>
-                    <ul className="list-none p-0 space-y-2">
-                      {category.subGroups.map((subGroup, itemIndex) => (
-                        <li key={itemIndex} className="text-text-light flex items-center gap-2 py-1">
-                          <span className="text-primary font-bold">•</span>
-                          <span className="flex-1">{subGroup}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* No Results Message */}
-          {filteredCategories.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-text-light text-lg">No categories found. Please try a different filter.</p>
-            </div>
-          )}
-        </div>
-      </section>
     </div>
   )
 }

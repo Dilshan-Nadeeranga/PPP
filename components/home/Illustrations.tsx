@@ -86,6 +86,19 @@ export function PantryIllustration() {
   )
 }
 
+export function BoardsIllustration() {
+  const sheet = (y: number, fill: string) => (
+    <path d={`M120 ${y}l52 22-52 22-52-22z`} fill={fill} stroke={INK} strokeWidth="3.5" strokeLinejoin="round" />
+  )
+  return (
+    <svg viewBox="0 0 240 160" className="h-full w-full" aria-hidden="true">
+      {sheet(74, '#e7c9a4')}
+      {sheet(60, '#f0d9bb')}
+      {sheet(46, '#fff7ee')}
+    </svg>
+  )
+}
+
 export function MapPattern() {
   return (
     <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" className="h-full w-full" aria-hidden="true">

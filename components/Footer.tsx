@@ -1,10 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { site } from '@/lib/site'
 
 const links = [
   { href: '/about', label: 'About' },
   { href: '/service', label: 'Services' },
-  { href: '/category', label: 'Categories' },
+  { href: '/category', label: 'Products' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -14,7 +15,10 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <p className="font-display text-lg font-semibold">{site.name}</p>
+            <Link href="/" className="inline-flex items-center gap-3" aria-label={`${site.name} home`}>
+              <Image src="/logo-mark-white.png" alt="" width={48} height={48} className="h-12 w-12" />
+              <span className="font-display text-lg font-semibold">{site.name}</span>
+            </Link>
             <p className="mt-3 leading-relaxed text-white/70">
               Glass cutting and installation, door hardware and aluminum pantry cupboards in Mirigama.
             </p>

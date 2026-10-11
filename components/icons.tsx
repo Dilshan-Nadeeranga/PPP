@@ -131,9 +131,3 @@ export const CloseIcon = (p: IconProps) => (
   </Icon>
 )
 
-export const LogoMark = (p: IconProps) => (
-  <Icon {...p}>
-    <rect x="5" y="5" width="14" height="14" rx="1.5" />
-    <path d="m9.5 15 5-6M9 9.5l1.5-1.5" />
-  </Icon>
-)
